@@ -1,0 +1,8 @@
+{
+  "name": "Caisse & Billet-dot",
+  "description": "Caisse & Billet-dot",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

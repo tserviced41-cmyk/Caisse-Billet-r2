@@ -1,0 +1,120 @@
+{
+  "entities": {
+    "caisse": {
+      "title": "Caisse",
+      "description": "Une caisse financière (ex: FVB Ambodisina, Fanorenana)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nom": { "type": "string" },
+        "description": { "type": "string" },
+        "devise": { "type": "string" },
+        "soldeInitial": { "type": "number" },
+        "statut": { "type": "string" },
+        "color": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "nom", "devise", "soldeInitial", "statut"]
+    },
+    "transaction": {
+      "title": "Transaction",
+      "description": "Une opération d'entrée ou de sortie sur une caisse",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "caisseId": { "type": "string" },
+        "type": { "type": "string" },
+        "montant": { "type": "number" },
+        "date": { "type": "string" },
+        "motif": { "type": "string" },
+        "responsable": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "caisseId", "type", "montant", "date"]
+    },
+    "ticket": {
+      "title": "Ticket",
+      "description": "Un billet d'une campagne avec suivi attribution et paiement",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "numero": { "type": "number" },
+        "campagne": { "type": "string" },
+        "prix": { "type": "number" },
+        "groupe": { "type": "string" },
+        "beneficiaire": { "type": "string" },
+        "telephone": { "type": "string" },
+        "paye": { "type": "boolean" },
+        "dateAttribution": { "type": "string" }
+      },
+      "required": ["id", "numero", "campagne", "prix", "paye"]
+    },
+    "user": {
+      "title": "User",
+      "description": "Utilisateur du système avec rôles et autorisations",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "username": { "type": "string" },
+        "fullName": { "type": "string" },
+        "role": { "type": "string" },
+        "canAccessAfb160": { "type": "boolean" },
+        "billetsPermission": { "type": "string" },
+        "canAccessActivite": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "username", "role"]
+    },
+    "activity": {
+      "title": "Activity",
+      "description": "Entrée du journal d'activité et d'audit",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userRole": { "type": "string" },
+        "action": { "type": "string" },
+        "description": { "type": "string" },
+        "details": { "type": "string" }
+      },
+      "required": ["id", "timestamp", "action", "description"]
+    },
+    "systemState": {
+      "title": "SystemState",
+      "description": "État global synchronisé du système multi-caisse",
+      "type": "object",
+      "properties": {
+        "revision": { "type": "number" },
+        "lastModified": { "type": "number" }
+      }
+    }
+  },
+  "firestore": {
+    "/caisses/{caisseId}": {
+      "schema": "caisse",
+      "description": "Collection des caisses financières de l'application"
+    },
+    "/transactions/{transactionId}": {
+      "schema": "transaction",
+      "description": "Collection de toutes les écritures et transactions des caisses"
+    },
+    "/tickets/{ticketId}": {
+      "schema": "ticket",
+      "description": "Collection de tous les billets et attributions d'opérations"
+    },
+    "/users/{userId}": {
+      "schema": "user",
+      "description": "Comptes utilisateurs et autorisations"
+    },
+    "/activities/{activityId}": {
+      "schema": "activity",
+      "description": "Historique chronologique des actions et opérations"
+    },
+    "/system/{systemId}": {
+      "schema": "systemState",
+      "description": "État persistant global du système"
+    }
+  }
+}
